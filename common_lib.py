@@ -14,7 +14,13 @@ from pywinauto import Application, Desktop
 def write_log(testcase_name,pass_list, fail_list, log_file_name):
     # Open log file and write
     try:
-        with codecs.open(f"{log_file_name}", "a", "utf-8") as file:
+        log_folder = 'Sound_Config_Result'
+        if not os.path.exists(log_folder):
+            os.makedirs(log_folder)
+
+        # Full path for the log file
+        log_file_path = os.path.join(log_folder, log_file_name)
+        with codecs.open(f"{log_file_path}", "a", "utf-8") as file:
             file.write(f"*{testcase_name.upper()}\n")
             file.write("-List of pass: \n")
             file.write("\n".join(pass_list))
@@ -108,6 +114,20 @@ def click_object(window, title, auto_id, control_type):
     sleep(1)
     return result
 
+# Function click object by index
+def click_object_by_index(window, title, control_type, index):
+    try:
+        object_selects = window.descendants(title=title, control_type=control_type)
+        object_select = object_selects[index]
+        wait_until(5, 1, lambda: object_select.is_visible())
+        object_select.click_input()
+        result = [True, title, object_select]
+    except Exception as e:
+        print(f"Error clicking object: {e}")
+        return (False, title, None)
+    sleep(1)
+    return result
+
 # Function find object
 def find_object(window, title, auto_id, control_type):
     object_find = window.child_window(title=title, auto_id=auto_id, control_type=control_type)
@@ -180,18 +200,22 @@ def init_file_name():
 
 #Function write result to excel file
 def write_result_report(testcase_name, result, report_file_name):
-    file_path = report_file_name
+    log_folder = 'Sound_Config_Result'
+    if not os.path.exists(log_folder):
+        os.makedirs(log_folder)
+
+    # Full path for the log file
+    log_file_path = os.path.join(log_folder, report_file_name)
     data_report = {
         'Test Case': testcase_name,
         'Result': result
     }
     df = pd.DataFrame(data_report)
 
-    df.to_excel(file_path, sheet_name='Sound Config', index=False, engine='openpyxl')
+    df.to_excel(log_file_path, sheet_name='Sound Config', index=False, engine='openpyxl')
 
     # Read back the file to verify
-    dfread = pd.read_excel(file_path, sheet_name='Sound Config')
-    print(dfread)
+    dfread = pd.read_excel(log_file_path, sheet_name='Sound Config')
 
 # Example usage
 
