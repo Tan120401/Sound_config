@@ -9,7 +9,7 @@ from common_lib import click_object, write_log, close_app
 def Realtek_Audio_console_App_2(detail_testcase, log_file_name):
 
     try:
-        detail_testcase = detail_testcase.split(',')
+        detail_testcase = detail_testcase.split('/')
 
         # The List contains the pass fail objects
         pass_list = []
@@ -40,7 +40,7 @@ def Realtek_Audio_console_App_2(detail_testcase, log_file_name):
         if realtek_window:
             pass_list.append(detail_testcase[1])
         else:
-            fail_list.append(detail_testcase[2])
+            fail_list.append(detail_testcase[1])
 
         #Write log
         write_log('Realtek_Audio_console_App_2', pass_list, fail_list, log_file_name)

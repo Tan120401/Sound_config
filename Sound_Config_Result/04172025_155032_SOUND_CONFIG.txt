@@ -1,0 +1,6 @@
+*DOLBY_ATMOS_FOR_BUILT
+-List of pass: 
+Dolby Atmos for Speakers
+-List of fail: 
+Enable abnormally -> Ready to use
+-------------------------------------------------------------------------

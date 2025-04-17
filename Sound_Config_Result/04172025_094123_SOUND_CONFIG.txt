@@ -1,0 +1,7 @@
+*REALTEK_AUDIO_CONSOLE_APP_2
+-List of pass: 
+1. Window Search -> Typing a Dolby -> Run Dolby -> Run Dolby Access App
+2. Check the introduction page when running for the first time
+-List of fail: 
+Can't skip introduction
+-------------------------------------------------------------------------

@@ -1,5 +1,8 @@
 *REALTEK_AUDIO_CONSOLE_APP_2
 -List of pass: 
-1. Press the win key
- check the Realtek Console on the All Apps list.
+1
+.
+Home page is focusing
+-List of fail: 
+Can't skip introduction
 -------------------------------------------------------------------------

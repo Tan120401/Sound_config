@@ -8,6 +8,7 @@ from common_lib import click_object, write_log, find_object, click_object_by_ind
 
 def Realtek_Audio_console_App_5(detail_testcase, log_file_name):
     try:
+        detail_testcase = detail_testcase.split('/')
         # The List contains the pass fail objects
         pass_list = []
         fail_list = []

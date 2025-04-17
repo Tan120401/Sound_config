@@ -41,24 +41,25 @@ def init_log_file():
     print(current_time)
     global log_file_name
     log_file_name = f"{current_time}_SOUND_CONFIG.txt"
+    return log_file_name
 
-    # check setting log exists
-    if os.path.exists(log_file_name):
-        try:
-            # delete file
-            os.remove(log_file_name)
-            print(f"Deleted existing log file: {log_file_name}")
-            return log_file_name
-        except Exception as e:
-            print(f"Error deleting log file: {e}")
-    try:
-        # Khởi tạo lại file log
-        with codecs.open(log_file_name, "w", "utf-8") as file:
-            file.write("")  # Tạo file rỗng
-        print(f"Initialized new log file: {log_file_name}")
-        return log_file_name
-    except Exception as e:
-        print(f"Error initializing log file: {e}")
+    # # check setting log exists
+    # if os.path.exists(log_file_name):
+    #     try:
+    #         # delete file
+    #         os.remove(log_file_name)
+    #         print(f"Deleted existing log file: {log_file_name}")
+    #         return log_file_name
+    #     except Exception as e:
+    #         print(f"Error deleting log file: {e}")
+    # try:
+    #     # Khởi tạo lại file log
+    #     with codecs.open(log_file_name, "w", "utf-8") as file:
+    #         file.write("")  # Tạo file rỗng
+    #     print(f"Initialized new log file: {log_file_name}")
+    #     return log_file_name
+    # except Exception as e:
+    #     print(f"Error initializing log file: {e}")
 
 # Move to object and scroll
 def scroll_center(target_window, title, auto_id, control_type):
@@ -92,6 +93,24 @@ def open_app(app_name):
         return target_window
     except Exception as e:
         print(f'open app error: {e}')
+
+# Print all windows
+def print_all_windows():
+    desktop = Desktop(backend='uia')
+    all_windows = desktop.windows()
+    for win in all_windows:
+        print(win.window_text())
+
+# Function open app return target windows
+def connect_app(app_name):
+    try:
+        app = Application(backend='uia').connect(title_re=f'.*{app_name}.*')
+        target_window = app.window(title_re=f'.*{app_name}.*')
+        target_window.set_focus()
+        return target_window
+    except Exception as e:
+        print(f'connect app error: {e}')
+        return False
 
 def wait_until(timeout, interval, condition):
     start_time = time.time()
@@ -219,3 +238,54 @@ def write_result_report(testcase_name, result, report_file_name):
 
 # Example usage
 
+def click_object_ad(window, title=None, auto_id=None, control_type=None, index=0, click_able = True):
+    try:
+        # Nếu có auto_id, sử dụng child_window để tìm trực tiếp
+        if auto_id is not None:
+            child_params = {'auto_id': auto_id}
+            if title is not None:
+                child_params['title'] = title
+            if control_type is not None:
+                child_params['control_type'] = control_type
+
+            try:
+                object_select = window.child_window(**child_params)
+            except Exception as e:
+                print(f"Không tìm thấy phần tử bằng child_window: {e}")
+                return False
+        else:
+            # Nếu không có auto_id, sử dụng descendants như trước
+            params = {k: v for k, v in {'title': title, 'control_type': control_type}.items() if v is not None}
+            if not params:
+                raise ValueError("At least one of title, auto_id, or control_type must be provided.")
+
+            object_selects = window.descendants(**params)
+
+            # Kiểm tra nếu không tìm thấy phần tử nào
+            if not object_selects:
+                print("Không tìm thấy phần tử nào phù hợp", title)
+                return False
+
+            # Kiểm tra index có hợp lệ không
+            if index >= len(object_selects):
+                print(f"Index {index} vượt quá số lượng phần tử tìm thấy ({len(object_selects)})")
+                return False
+
+            # Lấy phần tử theo index
+            object_select = object_selects[index]
+
+        # Đợi cho đến khi phần tử có thể tương tác được
+        if not wait_until(3, 0.5, lambda: object_select.is_visible() and object_select.is_enabled()):
+            print("Phần tử không hiển thị hoặc không thể tương tác được")
+            return False
+
+        # Click vào phần tử
+        if click_able:
+            object_select.click_input()
+
+        result = True
+    except Exception as e:
+        print(f'Click {title} error: {e}')
+        result = False
+
+    return result

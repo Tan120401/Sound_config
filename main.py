@@ -363,33 +363,38 @@ class MainWindow(QMainWindow, Ui_mainWindow):
 
     # Function show notifications uninstall
     def show_notification(self, message):
-        msg = QMessageBox()
-        msg.setIcon(QMessageBox.Icon.Information)
-        msg.setWindowTitle("Thông báo")
-        msg.setText(message)
-        msg.setStandardButtons(QMessageBox.StandardButton.Ok | QMessageBox.StandardButton.Cancel)
-        # msg.buttonClicked.connect(self.msgbtn)
-        msg.setStyleSheet("""
-                    QMessageBox {
-                        background-color: #f0f0f0;
-                        font-size: 14px;
-                        min-width: 500px;
-                        min-height: 150px;
-                    }
-                    QMessageBox QLabel {
-                        color: #2c3e50;
-                    }
-                    QMessageBox QPushButton {
-                        background-color: #3498db;
-                        color: #ffffff;
-                        border-radius: 5px;
-                        padding: 5px 10px;
-                    }
-                    QMessageBox QPushButton:hover {
-                        background-color: #2980b9;
-                    }
-                """)
-        msg.exec()
+        try:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Icon.Information)
+            msg.setWindowTitle("Thông báo")
+            msg.setText(message)
+            msg.setStandardButtons(QMessageBox.StandardButton.Ok | QMessageBox.StandardButton.Cancel)
+            # msg.buttonClicked.connect(self.msgbtn)
+            msg.setStyleSheet("""
+                        QMessageBox {
+                            background-color: #f0f0f0;
+                            font-size: 14px;
+                            min-width: 500px;
+                            min-height: 150px;
+                        }
+                        QMessageBox QLabel {
+                            color: #2c3e50;
+                        }
+                        QMessageBox QPushButton {
+                            background-color: #3498db;
+                            color: #ffffff;
+                            border-radius: 5px;
+                            padding: 5px 10px;
+                        }
+                        QMessageBox QPushButton:hover {
+                            background-color: #2980b9;
+                        }
+                    """)
+            msg.setWindowFlags(Qt.WindowType.WindowStaysOnTopHint)
+            msg.exec()
+        except Exception as e:
+            print('noti error: ', e)
+            pass
 
     #Function refresh data
     def refresh_data(self):
