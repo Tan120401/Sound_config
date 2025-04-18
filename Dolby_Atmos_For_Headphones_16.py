@@ -6,7 +6,7 @@ from pywinauto import Application
 from common_lib import click_object, click_object_by_index, write_log, scroll_center, connect_app, find_object, \
     open_app, click_object_ad
 
-def Dolby_Atmos_For_Built_6(detail_testcase, log_file_name):
+def Dolby_Atmos_For_Headphones_16(detail_testcase, log_file_name):
     try:
         detail_testcase = detail_testcase.split('/')
         # The List contains the pass fail objects
@@ -36,25 +36,34 @@ def Dolby_Atmos_For_Built_6(detail_testcase, log_file_name):
         else:
             fail_list.append('More Settings')
 
+        enable_effect = click_object_ad(dolby_window, title='My headphones', control_type='Text')
+        effect_button = click_object_ad(dolby_window, title='Enables a custom EQ profile for select headphone models', control_type='Text')
+
+        enable_effect = click_object_ad(dolby_window, title='Choose brand', control_type='Text')
+        enable_effect = click_object_ad(dolby_window, title='Choose model', control_type='Text')
+
         enable_effect = click_object_ad(dolby_window, title='Dolby Atmos effects for speakers and headphones', control_type='Text')
-        effect_button = click_object_ad(dolby_window, title='Dolby Atmos effects for speakers and headphones', control_type='Button')
-        effect_button = click_object_ad(dolby_window, title='Dolby Atmos effects for speakers and headphones', control_type='Button')
+        effect_button = click_object_ad(dolby_window, title='Dolby Atmos effects for speakers and headphones',
+                                        control_type='Button')
+        effect_button = click_object_ad(dolby_window, title='Dolby Atmos effects for speakers and headphones',
+                                        control_type='Button')
         if enable_effect:
             pass_list.append('Dolby Atmos effects for speakers and headphones')
         else:
             fail_list.append('Dolby Atmos effects for speakers and headphones')
 
-        if effect_button:
+        if enable_effect:
             pass_list.append('Dolby Atmos effects for speakers and headphones button')
         else:
             fail_list.append('Dolby Atmos effects for speakers and headphones button')
 
         dolby_window.close()
         # Write log
-        write_log('Dolby_Atmos_For_Built', pass_list, fail_list, log_file_name)
+        write_log('Dolby_Atmos_For_Headphones_16', pass_list, fail_list, log_file_name)
         if len(fail_list) > 0:
             return False
         elif len(pass_list) > 0:
             return True
     except Exception as e:
         print(f'write log error: {e}')
+Dolby_Atmos_For_Headphones_16('', '')

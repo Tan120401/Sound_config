@@ -7,7 +7,6 @@ data_testcase = [['Realtek_Audio_console_App_2', '1. Press the win key, check th
                  ['Dolby_Atmos_For_Built_5', '1) Dolby Access → Products tab → Dolby Atmos for built-in speakers/2) Click the Enable button.'],
                  ['Dolby_Atmos_For_Built_6', '1) Dolby Access → Settings tab → More Settings/2) Check that Disable all speaker and headphone effects'],
                  ['delete_reinstall_25', '1) End Dolby Access App'],
-                 ['delete_reinstall_25', '1) End Dolby Access App'],
-                 ['delete_reinstall_26', '1) Windows Settings → App → Installed Apps → Delete Dolby Access/2) Search Windows → Enter CMD → Right-click CMD → Run CMD with administrator permission 3) Execute the following command in CMD'],
-                 ['delete_reinstall_26', ''],
+                 ['Dolby_Atmos_For_Headphones_15', '1) Earphone (4pin) connection/2) Dolby Access -> Products tab -> Dolby Atmos for headphones -> Click setup button/3) Headphones setup - continue -> Continue -> Experience now'],
+                 ['Dolby_Atmos_For_Headphones_16', '1) Dolby Access -> Settings tab -> More settings/2) Check my headphone menu/3) Check that Disable speaker and headphone effects'],
                  ]

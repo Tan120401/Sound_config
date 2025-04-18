@@ -1,0 +1,11 @@
+*DOLBY_ATMOS_FOR_BUILT
+-List of pass: 
+More Settings
+Dolby Atmos effects for speakers and headphones
+Dolby Atmos effects for speakers and headphones button
+-------------------------------------------------------------------------
+*DOLBY_ATMOS_FOR_HEADPHONES_15
+-List of pass: 
+Dolby Atmos for Headphones
+Enable normally -> Ready to use
+-------------------------------------------------------------------------
